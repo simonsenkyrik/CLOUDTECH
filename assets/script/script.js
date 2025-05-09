@@ -50,6 +50,7 @@ function sendEmail() {
             document.querySelector(".contact-info").style.display = "none";
             document.querySelector(".contact-row").style.display = "none";
             document.querySelector(".success-container").style.display = "flex";
+            document.querySelector(".button-container").style.display = "flex";
         })
 
         .catch(() => {

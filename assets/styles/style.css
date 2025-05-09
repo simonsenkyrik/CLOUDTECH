@@ -239,8 +239,43 @@ form input, form textarea {
     justify-content: center;
     align-items: center;
     gap: 1.2rem;
-    padding: 70px 0px 70px 0px;
+    padding: 70px 0px 40px 0px;
 }
+
+.button-container {
+    display: none;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.button-back {
+    font-family: var(--ff-inter);
+    background: linear-gradient(#a22470, #104e92);
+    border-radius: .5rem;
+    border: none;
+    font-size: 15px;
+    color: var(--bs-white);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    line-height: 3rem;
+    cursor: pointer;
+}
+
+.button-to-form {
+    font-family: var(--ff-inter);
+    background: linear-gradient(#a22470, #104e92);
+    border-radius: .5rem;
+    border: none;
+    font-size: 15px;
+    color: var(--bs-white);
+    padding-left: 2.29rem;
+    padding-right: 2.29rem;
+    line-height: 3rem;
+    cursor: pointer;
+}
+
 
 .icon-correct {
     width: 110px;
