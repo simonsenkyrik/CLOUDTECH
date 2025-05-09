@@ -29,7 +29,7 @@ function sendEmail() {
 
     if (!form.checkValidity()) {
         form.reportValidity();
-        return;
+        return
     }
 
     const templateParams = {
