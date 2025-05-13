@@ -727,11 +727,10 @@ form input, form textarea {
         font-size: 14px;
     }
 
-    .e-515, .e-516, .e-517, .e-518, .e-519, .e-520, .e-521, .e-522
-    {
+    .e-515, .e-516, .e-517, .e-518, .e-519, .e-520, .e-521, .e-522 {
         object-fit: contain;
     }
-    
+
     .e-515 {
         width: 20px;
         height: 17px;
