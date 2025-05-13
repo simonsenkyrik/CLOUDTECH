@@ -296,10 +296,13 @@ form input, form textarea {
 }
 
 .footer-middle-third li {
-    display: flex;
     line-height: 1.5;
-    align-items: center;
     margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
 }
 
 .address-postal, .telephone, .email {
