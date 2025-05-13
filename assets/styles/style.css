@@ -300,7 +300,7 @@ form input, form textarea {
     margin-bottom: 10px;
 }
 
-.social-links {
+.social-links, .fast-links {
     display: flex;
     align-items: center;
 }
