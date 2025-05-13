@@ -727,58 +727,49 @@ form input, form textarea {
         font-size: 14px;
     }
 
+    .e-515, .e-516, .e-517, .e-518, .e-519, .e-520, .e-521, .e-522
+    {
+        object-fit: contain;
+    }
+    
     .e-515 {
         width: 20px;
         height: 17px;
-        object-fit: contain;
     }
 
     .e-516 {
         width: 20px;
         height: 20px;
-        object-fit: contain;
     }
     
     .e-517 {
         width: 20px;
         height: 20px;
-        object-fit: contain;
     }
 
     .e-518 {
         width: 20px;
         height: 18px;
-        object-fit: contain;
     }
 
     .e-519 {
         width: 20px;
         height: 20px;
-        object-fit: contain;
     }
 
     .e-520 {
         width: 20px;
         height: 20px;
-        object-fit: contain;
     }
 
     .e-521 {
         width: 20px;
         height: 20px;
-        object-fit: contain;
-    }
-
-    .e-521 {
-        width: 20px;
-        height: 20px;
-        object-fit: contain;
     }
 
     .e-522 {
         width: 20px;
         height: 20px;
-        object-fit: contain;
     }
 
     .links-footer-list {
