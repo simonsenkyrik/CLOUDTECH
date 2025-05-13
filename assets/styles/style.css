@@ -316,6 +316,7 @@ form input, form textarea {
     color: var(--bs-white);
     width: 30px;
     height: 25px;
+    object-fit: contain;
 }
 
 .icon-tel-contact, .telephone, .email {
@@ -325,6 +326,7 @@ form input, form textarea {
 .e-516 {
     width: 30px;
     height: 28px;
+    object-fit: contain;
 }
 
 .email a, .telephone a {
@@ -728,46 +730,55 @@ form input, form textarea {
     .e-515 {
         width: 20px;
         height: 17px;
+        object-fit: contain;
     }
 
     .e-516 {
         width: 20px;
         height: 20px;
+        object-fit: contain;
     }
     
     .e-517 {
         width: 20px;
         height: 20px;
+        object-fit: contain;
     }
 
     .e-518 {
         width: 20px;
         height: 18px;
+        object-fit: contain;
     }
 
     .e-519 {
         width: 20px;
         height: 20px;
+        object-fit: contain;
     }
 
     .e-520 {
         width: 20px;
         height: 20px;
+        object-fit: contain;
     }
 
     .e-521 {
         width: 20px;
         height: 20px;
+        object-fit: contain;
     }
 
     .e-521 {
         width: 20px;
         height: 20px;
+        object-fit: contain;
     }
 
     .e-522 {
         width: 20px;
         height: 20px;
+        object-fit: contain;
     }
 
     .links-footer-list {
