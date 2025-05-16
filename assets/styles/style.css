@@ -1137,6 +1137,7 @@ form input, form textarea {
     }
 
     .toggle-button {
+        all: unset;
         display: block;
         position: relative;
         width: 35px;
