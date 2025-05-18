@@ -239,7 +239,7 @@ form input, form textarea {
     justify-content: center;
     align-items: center;
     gap: 1.2rem;
-    padding: 70px 0px 40px 0px;
+    padding: 60px 0px 60px 0px;
 }
 
 .button-container {
@@ -262,6 +262,11 @@ form input, form textarea {
     line-height: 3rem;
     cursor: pointer;
     text-decoration: none;
+}
+
+.button-back:hover,
+.button-to-form:hover {
+    color: var(--bs-white);
 }
 
 .button-to-form {
@@ -1613,6 +1618,10 @@ form input, form textarea {
     .success-container {
         gap: 1rem;
     }
+
+    .icon-correct {
+        width: 80px;
+    }
     
 }
 
@@ -1628,10 +1637,6 @@ form input, form textarea {
 
     .why-us-heading {
         font-size: 23px;
-    }
-
-    .icon-correct {
-        width: 80px;
     }
 
 }
