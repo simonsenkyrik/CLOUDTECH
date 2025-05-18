@@ -261,6 +261,7 @@ form input, form textarea {
     padding-right: 1rem;
     line-height: 3rem;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .button-to-form {
@@ -274,6 +275,7 @@ form input, form textarea {
     padding-right: 2.29rem;
     line-height: 3rem;
     cursor: pointer;
+    text-decoration: none;
 }
 
 
@@ -1626,6 +1628,10 @@ form input, form textarea {
 
     .why-us-heading {
         font-size: 23px;
+    }
+
+    .icon-correct {
+        width: 80px;
     }
 
 }
