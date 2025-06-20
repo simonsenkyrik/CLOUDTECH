@@ -1057,7 +1057,8 @@ form input, form textarea {
     }
 
     .counter-number {
-        font-size: 67px;
+        font-size: 65px;
+        padding-left: 58px;
     }
 
     .counter-title {
@@ -1115,6 +1116,24 @@ form input, form textarea {
 
     .header-right, .navigation-menu, .nav-li {
         gap: 65px;
+    }
+
+    .counter-container {
+        padding: 17px;
+    }
+
+    .counter-container {
+        right: -18px;
+        top: -18px;
+    }
+
+
+    .counter-prefix {
+        padding-left: 20px;
+    }
+
+    .counter-number {
+        padding-left: 61px;
     }
 
     .footer-left {
@@ -1311,6 +1330,28 @@ form input, form textarea {
         height: 35px;
     }
 
+    
+    .counter-title {
+        font-size: 18px;
+    }
+    
+    .counter-number {
+        font-size: 62px;
+    }
+
+    .counter-prefix {
+        font-size: 50px;
+    }
+
+    .counter-prefix {
+        padding-left: 13px;
+    }
+
+    .counter-number {
+        padding-left: 53px;
+    }
+
+
 }
 
 @media screen and (max-width: 600px) { 
@@ -1354,6 +1395,30 @@ form input, form textarea {
 
     .why-us-p {
         padding-bottom: 15px;
+    }
+
+    .counter-prefix {
+        font-size: 48px;
+    }
+
+    .counter-number {
+        font-size: 60px;
+    }
+
+    .counter-title {
+        font-size: 17px;
+    }
+
+    .counter-container {
+        padding: 16px;
+    }
+
+    .counter-prefix {
+        padding-left: 12px;
+    }
+
+    .counter-number {
+        padding-left: 52px;
     }
 
 }
@@ -1455,6 +1520,23 @@ form input, form textarea {
         height: 11px;
     }
 
+    .counter-container {
+        padding: 15px;
+    }
+
+    .counter-container {
+        right: -16px;
+        top: -16px;
+    }
+
+    .counter-prefix {
+        padding-left: 14px;
+    }
+
+    .counter-number {
+        padding-left: 52px;
+    }
+
 }
 
 @media screen and (max-width: 480px) {
@@ -1476,6 +1558,27 @@ form input, form textarea {
         padding-left: 3rem;
         padding-right: 3rem;
     }
+
+    .counter-title {
+        font-size: 16px;
+    }
+
+    .counter-number {
+        font-size: 55px;
+    }
+
+    .counter-prefix {
+        font-size: 44px;
+    }
+
+    .counter-container {
+        padding: 14px;
+    }
+
+    .counter-number {
+        padding-left: 49px;
+    }
+
 }
 
 
@@ -1577,6 +1680,30 @@ form input, form textarea {
         padding: 85px 0 55px;
     }
 
+    .counter-title {
+        font-size: 15px;
+    }
+
+    .counter-container {
+        padding: 13px;
+    }
+
+    .counter-number {
+        font-size: 50px;
+    }
+
+    .counter-prefix {
+        font-size: 40px;
+    }
+
+    .counter-prefix {
+        padding-left: 12px;
+    }
+
+    .counter-number {
+        padding-left: 47px;
+    }
+
 }
 
 @media screen and (max-width: 350px) {
@@ -1605,6 +1732,35 @@ form input, form textarea {
 
     .base-ourselves-heading, .card-heading {
         text-align: center;
+    }
+
+    .counter-container {
+        padding: 11px;
+    }
+
+    .counter-title {
+        font-size: 14px;
+    }
+
+    .counter-prefix {
+        font-size: 38px;
+    }
+
+    .counter-number {
+        font-size: 48px;
+    }
+
+    .counter-container {
+        right: -14px;
+        top: -14px;
+    }
+
+    .counter-prefix {
+        padding-left: 14px;
+    }
+
+    .counter-number {
+        padding-left: 43px;
     }
 
 }
@@ -1641,6 +1797,26 @@ form input, form textarea {
 
     .why-us-heading {
         font-size: 23px;
+    }
+
+    .counter-title {
+        font-size: 13px;
+    }
+
+    .counter-prefix {
+        font-size: 35px;
+    }
+
+    .counter-number {
+        font-size: 45px;
+    }
+
+    .counter-prefix {
+        padding-left: 11px;
+    }
+
+    .counter-number {
+        padding-left: 40px;
     }
 
 }

@@ -64,11 +64,137 @@ let plus = document.querySelector('.counter-prefix');
 let count = 1;
 let MaxCount = 10;
 
-function UpdaterCounter() {
+function updateCounter() {
     if (count <= MaxCount) {
         counter.textContent = count;
 
         if (count === 10) {
+            applyResponsiveStyles(10);
+        } else {
+            applyResponsiveStyles(count);
+        }
+
+        count++;
+    } else {
+        clearInterval(interval);
+    }
+}
+
+function applyResponsiveStyles(currentValue) {
+    let width = window.innerWidth;
+    let isTen = currentValue === 10;
+
+    if (width <= 310) {
+        if (isTen) {
+            counter.style.paddingLeft = '30px';
+            plus.style.paddingLeft = '5px';
+        } 
+        
+        else {
+            counter.style.paddingLeft = '40px';
+            plus.style.paddingLeft = '11px';
+        }
+    } 
+    
+    else if (width <= 350) {
+        if (isTen) {
+            counter.style.paddingLeft = '33px';
+            plus.style.paddingLeft = '5px';
+        } 
+        
+        else {
+            counter.style.paddingLeft = '43px';
+            plus.style.paddingLeft = '14px';
+        }
+    } 
+    
+    else if (width <= 400) {
+        if (isTen) {
+            counter.style.paddingLeft = '37px';
+            plus.style.paddingLeft = '5px';
+        } 
+        
+        else {
+            counter.style.paddingLeft = '47px';
+            plus.style.paddingLeft = '12px';
+        }
+    } 
+    
+    else if (width <= 450) {
+        if (isTen) {
+            counter.style.paddingLeft = '39px';
+            plus.style.paddingLeft = '4px';
+        } 
+        
+        else {
+            counter.style.paddingLeft = '49px';
+            plus.style.paddingLeft = '14px';
+        }
+
+    }     
+
+    else if (width <= 550) {
+        if (isTen) {
+            counter.style.paddingLeft = '40px';
+            plus.style.paddingLeft = '4px';
+        } 
+        
+        else {
+            counter.style.paddingLeft = '52px';
+            plus.style.paddingLeft = '14px';
+        }
+
+    } 
+    
+    else if (width <= 600) {
+        if (isTen) {
+            counter.style.paddingLeft = '40px';
+            plus.style.paddingLeft = '4px';
+        } 
+        
+        else {
+            counter.style.paddingLeft = '52px';
+            plus.style.paddingLeft = '12px';
+        }
+    } 
+    
+    else if (width <= 800) {
+        if (isTen) {
+            counter.style.paddingLeft = '43px';
+            plus.style.paddingLeft = '5px';
+        } 
+        
+        else {
+            counter.style.paddingLeft = '53px';
+            plus.style.paddingLeft = '13px';
+        }
+    } 
+    
+    else if (width <= 860) {
+        if (isTen) {
+            counter.style.paddingLeft = '44px';
+            plus.style.paddingLeft = '5px';
+        } 
+        
+        else {
+            counter.style.paddingLeft = '61px';
+            plus.style.paddingLeft = '20px';
+        }
+    }
+
+     else if (width <= 960) {
+        if (isTen) {
+            counter.style.paddingLeft = '45px';
+            plus.style.paddingLeft = '5px';
+        } 
+        else {
+            counter.style.paddingLeft = '58px';
+            plus.style.paddingLeft = '18px';
+        }
+    } 
+
+    else {
+        if (isTen) {
             counter.style.paddingLeft = '48px';
             plus.style.paddingLeft = '6px';
         } 
@@ -77,13 +203,14 @@ function UpdaterCounter() {
             counter.style.paddingLeft = '63px';
             plus.style.paddingLeft = '18px';
         }
-
-        count++;
-    } 
-    
-    else {
-        clearInterval(interval);
     }
 }
 
-let interval = setInterval(UpdaterCounter, 300);
+
+let interval = setInterval(updateCounter, 300);
+
+
+window.addEventListener('resize', function () {
+    let currentValue = Math.min(count - 1, MaxCount);
+    applyResponsiveStyles(currentValue);
+});
