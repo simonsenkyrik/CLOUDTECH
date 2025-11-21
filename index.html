@@ -43,12 +43,43 @@
             <button class="close-btn">✕</button>
         </div>
 
+        <div class="modal-tabs">
+            <button class="tab active" data-tab="login">Přihlášení</button>
+            <button class="tab" data-tab="sign-up">Registrace</button>
+        </div>
+
         <form id="log-in-form">
             <label>Email nebo Uživatelské jméno</label>
-            <input type="text" placeholder="Zadejte Email nebo Uživatelské jméno" required="">
+            <input type="text" class="log-in-input" placeholder="Zadejte Email nebo Uživatelské jméno" required="">
+            <label>Heslo</label>
+            <input type="password" class="log-in-input" placeholder="Zadejte heslo" required="">
+            <button type="submit" class="log-in-sub-btn">Přihlásit se</button>
+        </form>
+
+        <form id="sign-up-form">
+            <label>Email</label>
+            <input type="email" placeholder="Zadejte Email" required="">
+            <label>Datum narození</label>
+            <input type="date" required="">
+            <label>Username</label>
+            <input type="text" required="">
             <label>Heslo</label>
             <input type="password" placeholder="Zadejte heslo" required="">
-            <button type="submit" class="log-in-sub-btn">Přihlásit se</button>
+            <button type="submit" class="sign-up-sub-btn">Registrovat se</button>
+
+            <div class="divider">
+                <span>nebo pokračovat pomocí</span>
+            </div>
+
+            <div class="socials">
+                <button type="button">Google</button>
+                <button type="button">Apple</button>
+            </div>
+
+            <p class="terms">
+                Registrací souhlasíte s Podmínkami použití a 
+            </p>
+
         </form>
 
     </div>

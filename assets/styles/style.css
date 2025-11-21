@@ -133,9 +133,50 @@ ul, li {
     padding: .625rem 1.25rem;
 }
 
-.pop-up-modal {
+.modal {
+    position: fixed;
     display: none;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
 }
+
+.modal-window {
+    background: var(--bs-dark-blue);
+    width: 420px;
+    padding: 22px;
+    border-radius: 8px;
+    animation: modalIn .2s ease;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(.9);}
+    to { opacity: 1; transform: scale(1);}
+}
+
+.modal-header-logo {
+    height: 26px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--bs-white);
+    cursor: pointer;
+}
+
+.modal-tabs {
+    display: flex;
+}
+
  
 .nav-btn, a:hover {
     color: var(--bs-light-blue);
