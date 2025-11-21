@@ -175,6 +175,7 @@ ul, li {
 
 .modal-tabs {
     display: flex;
+    margin-top: 15px;
 }
 
  
