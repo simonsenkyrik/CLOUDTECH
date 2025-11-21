@@ -12,7 +12,7 @@
     <nav class="navigation-container">
         <div class="header-left">
             <a href="index.html">
-                <img class="header-logo" src="assets/images/cloudtech-logo.png">
+                <img class="header-logo" src="assets/images/cloudtech-logo.png" alt="cloudtech logo">
             </a>    
         </div>
         <div class="hamburger-icon">
@@ -29,8 +29,29 @@
                 <li class="nav-btn"><a class="nav-li" href="o-nas.html">O nás</a></li>
                 <li class="nav-btn"><a class="nav-li" href="kontakt.html">Kontakt</a></li>
             </ul>
+            <div class="centered-buttons">
+                <button id="open-log-in" class="but-log-in">Přihlášení</li>
+                <button class="but-sign-up">Registrace</li>
+            </div>
         </div>
     </nav>
 </header>
+<div class="modal">
+    <div class="but-modal-window">
+        <div class="modal-header">
+            <img class="modal-header-logo" src="assets/images/cloudtech-logo.png" alt="cloudtech logo">
+            <button class="close-btn">✕</button>
+        </div>
+
+        <form id="log-in-form">
+            <label>Email nebo Uživatelské jméno</label>
+            <input type="text" placeholder="Zadejte Email nebo Uživatelské jméno" required="">
+            <label>Heslo</label>
+            <input type="password" placeholder="Zadejte heslo" required="">
+            <button type="submit" class="log-in-sub-btn">Přihlásit se</button>
+        </form>
+
+    </div>
+</div>
 <script src="assets/script/script.js"></script>
 </body>

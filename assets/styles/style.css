@@ -95,6 +95,47 @@ ul, li {
     font-family: var(--ff-inter);
     text-transform: uppercase;
 }
+
+.centered-buttons {
+    display: flex;
+    align-items: center;
+    gap: .625rem;
+}
+
+.but-log-in, .but-sign-up {
+    font-family: var(--ff-inter);
+    font-size: 18px;
+    text-transform: uppercase;
+    color: var(--bs-white);
+    background: var(--bs-dark-blue);
+    cursor: pointer;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: .625rem 1.25rem;
+}
+
+.but-log-in {
+    border: 1px solid var(--bs-white);
+}
+
+.but-sign-up {
+    border: 3px solid;
+    border-image: linear-gradient(41deg, #46BAF9 18%, #062D6D 100%);
+    border-image-slice: 1;
+    background: linear-gradient(41deg, #46BAF9 18%, #062D6D 100%);
+    color: var(--bs-white);
+    font-family: var(--ff-inter);
+    font-size: 18px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: .625rem 1.25rem;
+}
+
+.pop-up-modal {
+    display: none;
+}
  
 .nav-btn, a:hover {
     color: var(--bs-light-blue);
@@ -106,6 +147,7 @@ ul, li {
     gap: 100px;
     text-decoration: none;
     color: var(--bs-white);
+    align-items: center;
 }
 
 .nav-li {
