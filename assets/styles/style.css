@@ -107,30 +107,21 @@ ul, li {
     font-size: 18px;
     text-transform: uppercase;
     color: var(--bs-white);
-    background: var(--bs-dark-blue);
+    padding: 0 1.25rem;
+    height: 44px;
+    border-radius: 5px;       
     cursor: pointer;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 5px;
-    padding: .625rem 1.25rem;
+    box-sizing: border-box; 
 }
 
 .but-log-in {
+    background: var(--bs-dark-blue);
     border: 1px solid var(--bs-white);
 }
 
 .but-sign-up {
-    border: 3px solid;
-    border-image: linear-gradient(41deg, #46BAF9 18%, #062D6D 100%);
-    border-image-slice: 1;
     background: linear-gradient(41deg, #46BAF9 18%, #062D6D 100%);
-    color: var(--bs-white);
-    font-family: var(--ff-inter);
-    font-size: 18px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: .625rem 1.25rem;
+    border: none;
 }
 
 .modal {
