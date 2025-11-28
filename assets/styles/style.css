@@ -109,9 +109,9 @@ ul, li {
     color: var(--bs-white);
     padding: 0 1.25rem;
     height: 44px;
-    border-radius: 5px;       
+    border-radius: 5px;
     cursor: pointer;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 .but-log-in {
