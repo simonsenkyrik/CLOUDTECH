@@ -128,12 +128,13 @@ ul, li {
     position: fixed;
     display: none;
     inset: 0;
+    background: #000008;
     justify-content: center;
     align-items: center;
     background-color: transparent;
 }
 
-.modal-window {
+.but-modal-window {
     background: var(--bs-dark-blue);
     width: 420px;
     padding: 22px;
@@ -167,8 +168,91 @@ ul, li {
 .modal-tabs {
     display: flex;
     margin-top: 15px;
+    border-bottom: 1px solid var(--bs-black);
 }
 
+.tab {
+    background: none;
+    border: none;
+    padding: 10px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #999;
+}
+
+.tab.active {
+    color: var(--bs-white);
+    border-bottom: 2px solid var(--bs-white);
+}
+
+.SignUpForm {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.LogInForm.active {
+    display: flex;
+}
+
+.SignUpForm.active {
+    display: flex;
+}
+
+.log-in-input, .sing-up-input {
+    background: #121315;
+    border: 2px solid #333;
+    padding: 9px;
+    border-radius: 6px;
+    color: var(--bs-white);
+}
+
+.sign-up-sub-btn {
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 6px;
+    color: var(--bs-black);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    gap: 10px;
+}
+
+.divider::before 
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #444;
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.soc-btn {
+    width: 100px;
+    padding: 8px;
+    background: #202224;
+    border: none;
+    border-radius: 6px;
+    color: var(--bs-white);
+    cursor: pointer;
+}
+
+.terms {
+    font-size: 11px;
+    text-align: center;
+    color: #bbb;
+}
  
 .nav-btn, a:hover {
     color: var(--bs-light-blue);

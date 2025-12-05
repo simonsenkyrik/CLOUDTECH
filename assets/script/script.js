@@ -214,3 +214,53 @@ window.addEventListener('resize', function () {
     let currentValue = Math.min(count - 1, MaxCount);
     applyResponsiveStyles(currentValue);
 });
+
+const modal = document.getElementById("modal");
+const tabs = document.querySelectorAll(".tab");
+const LGNForm = document.getElementById("log-in-form");
+const SGNForm = document.getElementById("sign-up-form");
+const closeBtn = document.querySelector(".close-btn");
+
+// Zavření modalu
+closeBtn.onclick = () => modal.style.display = "none";
+
+// Funkce na přepínání tabů
+function activateTab(type) {
+    tabs.forEach(t => t.classList.remove("active"));
+
+    tabs.forEach(tab => {
+        if (tab.getAttribute("data-tab") === type) {
+            tab.classList.add("active");
+        }
+    });
+
+    if (type === "login") {
+        LGNForm.classList.add("active");
+        SGNForm.classList.remove("active");
+    } else {
+        SGNForm.classList.add("active");
+        LGNForm.classList.remove("active");
+    }
+}
+
+// Klikání na taby
+tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+        activateTab(tab.getAttribute("data-tab"));
+    });
+});
+
+// Otevřít modal – login
+document.getElementById("open-log-in").onclick = () => {
+    modal.style.display = "flex";
+    activateTab("login");
+};
+
+// Otevřít modal – signup
+document.getElementById("open-sign-up").onclick = () => {
+    modal.style.display = "flex";
+    activateTab("sign-up");
+};
+
+
+
