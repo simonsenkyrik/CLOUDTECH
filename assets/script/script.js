@@ -1,27 +1,31 @@
 const toggleButton = document.querySelector('.toggle-button');
 const navigationMenu = document.querySelector('.navigation-menu');
 
-toggleButton.addEventListener('click', () => {
-    navigationMenu.classList.toggle('active');
-    toggleButton.classList.toggle('active');
-});
+if (toggleButton && navigationMenu) {
+    toggleButton.addEventListener('click', () => {
+        navigationMenu.classList.toggle('active');
+        toggleButton.classList.toggle('active');
+    });
+}
 
 
 const scrollButton = document.querySelector('.scroll-top-btn');
 
-scrollButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+if (scrollButton) {
+    scrollButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-document.addEventListener('scroll', () => {
-    if (window.scrollY > 1000) {
-        scrollButton.style.display = 'flex';
-    } 
-    
-    else {
-        scrollButton.style.display = 'none';
-    }
-});
+    document.addEventListener('scroll', () => {
+        if (window.scrollY > 1000) {
+            scrollButton.style.display = 'flex';
+        } 
+        
+        else {
+            scrollButton.style.display = 'none';
+        }
+    });
+}
 
 
 function sendEmail() {
@@ -215,52 +219,61 @@ window.addEventListener('resize', function () {
     applyResponsiveStyles(currentValue);
 });
 
+
 const modal = document.getElementById("modal");
 const tabs = document.querySelectorAll(".tab");
 const LGNForm = document.getElementById("log-in-form");
 const SGNForm = document.getElementById("sign-up-form");
 const closeBtn = document.querySelector(".close-btn");
 
-// Zavření modalu
-closeBtn.onclick = () => modal.style.display = "none";
-
-// Funkce na přepínání tabů
-function activateTab(type) {
-    tabs.forEach(t => t.classList.remove("active"));
-
-    tabs.forEach(tab => {
-        if (tab.getAttribute("data-tab") === type) {
-            tab.classList.add("active");
-        }
+if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
     });
+}
+
+window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
+});
+
+function activateTab(type) {
+    tabs.forEach(tab => tab.classList.remove("active"));
+    LGNForm.classList.remove("active");
+    SGNForm.classList.remove("active");
 
     if (type === "login") {
+        document.querySelector('[data-tab="login"]').classList.add("active");
         LGNForm.classList.add("active");
-        SGNForm.classList.remove("active");
-    } else {
+    }
+
+    if (type === "sign-up") {
+        document.querySelector('[data-tab="sign-up"]').classList.add("active");
         SGNForm.classList.add("active");
-        LGNForm.classList.remove("active");
     }
 }
 
-// Klikání na taby
 tabs.forEach(tab => {
     tab.addEventListener("click", () => {
-        activateTab(tab.getAttribute("data-tab"));
+        activateTab(tab.dataset.tab);
     });
 });
 
-// Otevřít modal – login
-document.getElementById("open-log-in").onclick = () => {
-    modal.style.display = "flex";
-    activateTab("login");
-};
+const openLoginBtn = document.getElementById("openLogIn");
+if (openLoginBtn) {
+    openLoginBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+        activateTab("login");
+    });
+}
 
-// Otevřít modal – signup
-document.getElementById("open-sign-up").onclick = () => {
-    modal.style.display = "flex";
-    activateTab("sign-up");
-};
-
+const openSignupBtn = document.getElementById("openSignUp");
+if (openSignupBtn) {
+    openSignupBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+        activateTab("sign-up");
+    });
+}
 
 

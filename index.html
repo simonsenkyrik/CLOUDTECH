@@ -30,12 +30,13 @@
                 <li class="nav-btn"><a class="nav-li" href="kontakt.html">Kontakt</a></li>
             </ul>
             <div class="centered-buttons">
-                <button id="open-log-in" class="but-log-in">Přihlášení</li>
-                <button id="open-sign-up" class="but-sign-up">Registrace</li>
+                <button id="openLogIn" class="but-log-in">Přihlášení</button>
+                <button id="openSignUp" class="but-sign-up">Registrace</button>
             </div>
         </div>
     </nav>
 </header>
+<section class="main-page"></section>
 <div class="modal" id="modal">
     <div class="but-modal-window">
         <div class="modal-header">
@@ -43,24 +44,48 @@
             <button class="close-btn">✕</button>
         </div>
         <div class="modal-tabs">
-            <button class="tab active" data-tab="login">Přihlášení</button>
+            <button class="tab" data-tab="login">Přihlášení</button>
             <button class="tab" data-tab="sign-up">Registrace</button>
         </div>
-        <form class="LogInForm active" id="log-in-form">
-            <label>Email nebo Uživatelské jméno</label>
-            <input type="text" class="log-in-input" placeholder="Zadejte Email nebo Uživatelské jméno" required="">
-            <label>Heslo</label>
+        <form class="LogInForm" id="log-in-form">
+            <label class="LaModal">Email nebo Uživatelské jméno</label>
+            <input type="email" class="log-in-input" placeholder="Zadejte Email nebo Uživatelské jméno" required="">
+            <label class="LaModal">Heslo</label>
             <input type="password" class="log-in-input" placeholder="Zadejte heslo" required="">
             <button type="submit" class="log-in-sub-btn">Přihlásit se</button>
+            <div class="divider">
+                <span>nebo pokračovat pomocí</span>
+            </div>
+
+            <div class="socials">
+                <button class="gsi-material-button">
+                    <div class="gsi-material-button-state"></div>
+                        <div class="gsi-material-button-content-wrapper">
+                            <div class="gsi-material-button-icon">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                                    <path fill="none" d="M0 0h48v48H0z"></path>
+                                </svg>
+                            </div>
+                        <span style="display: none;">Sign in with Google</span>
+                    </div>
+                </button>
+                <button type="button" class="soc-btn apple">Apple</button>
+            </div>
+
+
         </form>
         <form class="SignUpForm" id="sign-up-form">
-            <label>Email</label>
+            <label class="LaModal">Email</label>
             <input type="email" class="sing-up-input" placeholder="Zadejte Email" required="">
-            <label>Datum narození</label>
+            <label class="LaModal">Datum narození</label>
             <input type="date" class="sing-up-input" required="">
-            <label>Username</label>
+            <label class="LaModal">Username</label>
             <input type="text" class="sing-up-input" required="">
-            <label>Heslo</label>
+            <label class="LaModal">Heslo</label>
             <input type="password" class="sing-up-input" placeholder="Zadejte heslo" required="">
             <button type="submit" class="sign-up-sub-btn">Registrovat se</button>
 
@@ -82,4 +107,6 @@
     </div>
 </div>
 <script src="assets/script/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
 </body>
