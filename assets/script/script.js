@@ -276,4 +276,49 @@ if (openSignupBtn) {
     });
 }
 
+const SUPABASE_URL = "https://kklayfqcsrbghzctlncv.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_wC_LPUaxGzVbPJHw1ZEj-A_QKABj_BZ";
+
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+SGNForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+        alert("Chyba: " + error.message);
+    } else {
+        alert("Registrace proběhla! Zkontroluj email.");
+    }
+});
+
+LGNForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+        alert("Login chyba: " + error.message);
+    } else {
+        alert("Přihlášení úspěšné!");
+        modal.style.display = "none";
+    }
+});
+
 
