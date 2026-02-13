@@ -243,6 +243,7 @@ ul, li {
     text-transform: uppercase;
     background: linear-gradient(#a22470, #104e92);
     width: 100%;
+    font-family: var(--ff-inter);
 }
 
 .LogInForm, .SignUpForm {
@@ -262,7 +263,12 @@ ul, li {
     cursor: pointer;
     padding: 10px;
     border-radius: 6px;
-    color: var(--bs-black);
+    margin-top: 16px;
+    color: var(--bs-white);
+    text-transform: uppercase;
+    background: linear-gradient(#a22470, #104e92);
+    width: 100%;
+    font-family: var(--ff-inter);
 }
 
 .divider {
