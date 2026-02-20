@@ -215,7 +215,7 @@ ul, li {
     margin-top: 20px;
 }
 
-.log-in-input, .sing-up-input {
+.log-in-input, .sign-up-input {
     background: var(--bs-indigo); 
     border: 2px solid #333;
     padding: 9px;

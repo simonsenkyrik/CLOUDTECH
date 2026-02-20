@@ -289,18 +289,38 @@ SGNForm.addEventListener("submit", async (e) => {
 
     const email = document.getElementById("signup-email").value;
     const password = document.getElementById("signup-password").value;
+    const username = document.getElementById("signup-username").value;
+    const birth_date = document.getElementById("signup-date").value;
 
-    const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password
-    });
+    const { data: signUpData, error: signUpError } =
+        await supabase.auth.signUp({
+            email,
+            password
+        });
 
-    if (error) {
-        alert("Chyba: " + error.message);
-    } else {
-        alert("Registrace proběhla! Zkontroluj email.");
+    if (signUpError) {
+        alert("Chyba: " + signUpError.message);
+        return;
     }
+
+    const { error: profileError } = await supabase
+        .from("profiles")
+        .insert([
+            {
+                id: signUpData.user.id,
+                username: username,
+                birth_date: birth_date
+            }
+        ]);
+
+    if (profileError) {
+        alert("Chyba při ukládání profilu: " + profileError.message);
+        return;
+    }
+
+    alert("Registrace proběhla! Zkontroluj email.");
 });
+
 
 LGNForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -315,9 +335,23 @@ LGNForm.addEventListener("submit", async (e) => {
 
     if (error) {
         alert("Login chyba: " + error.message);
-    } else {
+    } 
+    
+    else {
         alert("Přihlášení úspěšné!");
         modal.style.display = "none";
+
+        window.location.href = "http://127.0.0.1:5173/dashboard";
+    }
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const { data } = await supabase.auth.getSession();
+
+    if (data.session) {
+        console.log("Uživatel je přihlášen:", data.session.user.email);
+    } else {
+        console.log("Nikdo není přihlášen");
     }
 });
 
