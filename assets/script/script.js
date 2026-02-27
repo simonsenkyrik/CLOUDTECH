@@ -284,6 +284,7 @@ const supabase = window.supabase.createClient(
     SUPABASE_ANON_KEY
 );
 
+
 SGNForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -354,5 +355,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("Nikdo není přihlášen");
     }
 });
+
+
 
 
