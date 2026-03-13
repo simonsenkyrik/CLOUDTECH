@@ -1,0 +1,148 @@
+
+.counter-container {
+    position: absolute;
+    background: linear-gradient(41deg, #46BAF9 18%, #062D6D 100%);
+    padding: 20px;
+    right: -22px;
+    top: -22px;
+    display: inline-block;
+    text-align: center;
+}
+
+
+.counter-num {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 600;
+    position: relative;
+}
+
+.counter-prefix {
+    font-size: 55px;
+    position: absolute;
+    left: 0px;
+    padding-left: 20px;
+
+}
+
+.counter-prefix, .counter-number, .counter-title {
+    font-family: var(--ff-inter);
+    color: var(--bs-white);
+}
+
+.counter-number {
+    font-size: 70px;
+    padding-left: 66px;
+}
+
+.counter-title {
+    font-size: 20px;
+}
+
+
+
+
+JavaScript:
+
+
+let counter = document.querySelector('.counter-number');
+let plus = document.querySelector('.counter-prefix');
+let count = 1;
+let MaxCount = 10;
+
+function UpdaterCounter() {
+    if (count <= MaxCount) {
+        counter.textContent = count;
+
+        if (count === 10) {
+            counter.style.paddingLeft = '48px';
+            plus.style.paddingLeft = '6px';
+        } 
+        
+        else {
+            counter.style.paddingLeft = '66px';
+            plus.style.paddingLeft = '20px';
+        }
+
+        count++;
+    } 
+    
+    else {
+        clearInterval(interval);
+    }
+}
+
+let interval = setInterval(UpdaterCounter, 300);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+předchozí kód:
+
+.counter-image {
+    position: relative;
+}
+
+.counter-container {
+    position: absolute;
+    background: linear-gradient(41deg, #46BAF9 18%, #062D6D 100%);
+    padding: 20px;
+    right: -22px;
+    top: -22px;
+}
+
+.counter-num {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.counter-prefix {
+    font-size: 55px;
+    margin-right: 5px;
+}
+
+.counter-prefix, .counter-number, .counter-title {
+    font-family: var(--ff-inter);
+    color: var(--bs-white);
+}
+
+.counter-number {
+    font-size: 70px;
+}
+
+.counter-title {
+    font-size: 20px;
+}
+
+let counter = document.querySelector('.counter-number');
+let plus = document.querySelector('.counter-prefix');
+let count = 1;
+let MaxCount = 10;
+
+function UpdaterCounter() {
+    if (count <= MaxCount) {
+        counter.textContent = count;
+        count++;
+    }
+    
+    else {
+        clearInterval(interval);
+    }
+}
+
+let interval = setInterval(UpdaterCounter, 300);
