@@ -342,7 +342,7 @@ LGNForm.addEventListener("submit", async (e) => {
         alert("Přihlášení úspěšné!");
         modal.style.display = "none";
 
-        window.location.href = "http://127.0.0.1:5173/dashboard";
+        window.location.href = "http://localhost:5173/";
     }
 });
 
