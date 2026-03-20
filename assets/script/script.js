@@ -288,9 +288,9 @@ if (SGNForm) {
     SGNForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const email = document.getElementById("signup-email").value;
+        const email = document.getElementById("signup-email").value.trim();
         const password = document.getElementById("signup-password").value;
-        const username = document.getElementById("signup-username").value;
+        const username = document.getElementById("signup-username").value.trim();
         const birth_date = document.getElementById("signup-date").value;
 
         const { data: signUpData, error: signUpError } =
@@ -307,7 +307,7 @@ if (SGNForm) {
         const userId = signUpData?.user?.id;
 
         if (!userId) {
-            alert("Registrace proběhla, ale nepodařilo se získat ID uživatele.");
+            alert("Nepodařilo se získat ID uživatele.");
             return;
         }
 
@@ -318,7 +318,8 @@ if (SGNForm) {
                     id: userId,
                     email: email,
                     username: username,
-                    birth_date: birth_date
+                    birth_date: birth_date,
+                    plan: "free"
                 }
             ]);
 
@@ -327,7 +328,7 @@ if (SGNForm) {
             return;
         }
 
-        alert("Registrace proběhla! Zkontroluj email.");
+        alert("Registrace proběhla úspěšně!");
         modal.style.display = "none";
     });
 }
@@ -364,11 +365,15 @@ if (LGNForm) {
 
         if (error) {
             alert("Login chyba: " + error.message);
+
         } 
         
         else {
             alert("Přihlášení úspěšné!");
             modal.style.display = "none";
+
+            // později vrátíme redirect na dashboard
+            // window.location.href = "http://localhost:5173/";
         }
     });
 }
