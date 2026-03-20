@@ -127,12 +127,14 @@ ul, li {
 .modal {
     display: none;
     position: fixed;
-    inset: auto;
+    inset: 0;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     z-index: 9999;
     width: 100%;
-    padding-top: 100px;
+    min-height: 100vh;
+    padding-top: 200px;
+    background: rgba(0, 0, 0, 0.75);
 }
 
 .but-modal-window {

@@ -279,75 +279,102 @@ if (openSignupBtn) {
 const SUPABASE_URL = "https://kklayfqcsrbghzctlncv.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_wC_LPUaxGzVbPJHw1ZEj-A_QKABj_BZ";
 
-const supabase = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
 );
 
+if (SGNForm) {
+    SGNForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-SGNForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+        const email = document.getElementById("signup-email").value;
+        const password = document.getElementById("signup-password").value;
+        const username = document.getElementById("signup-username").value;
+        const birth_date = document.getElementById("signup-date").value;
 
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
-    const username = document.getElementById("signup-username").value;
-    const birth_date = document.getElementById("signup-date").value;
+        const { data: signUpData, error: signUpError } =
+            await supabaseClient.auth.signUp({
+                email,
+                password
+            });
 
-    const { data: signUpData, error: signUpError } =
-        await supabase.auth.signUp({
-            email,
-            password
+        if (signUpError) {
+            alert("Chyba: " + signUpError.message);
+            return;
+        }
+
+        const userId = signUpData?.user?.id;
+
+        if (!userId) {
+            alert("Registrace proběhla, ale nepodařilo se získat ID uživatele.");
+            return;
+        }
+
+        const { error: profileError } = await supabaseClient
+            .from("profiles")
+            .insert([
+                {
+                    id: userId,
+                    email: email,
+                    username: username,
+                    birth_date: birth_date
+                }
+            ]);
+
+        if (profileError) {
+            alert("Chyba při ukládání profilu: " + profileError.message);
+            return;
+        }
+
+        alert("Registrace proběhla! Zkontroluj email.");
+        modal.style.display = "none";
+    });
+}
+
+if (LGNForm) {
+    LGNForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const identifier = document.getElementById("login-identifier").value.trim();
+        const password = document.getElementById("login-password").value;
+
+        let emailToUse = identifier;
+        const isEmail = identifier.includes("@");
+
+        if (!isEmail) {
+            const { data: profile, error: profileError } = await supabaseClient
+                .from("profiles")
+                .select("email")
+                .eq("username", identifier)
+                .single();
+
+            if (profileError || !profile) {
+                alert("Uživatel s tímto jménem nebyl nalezen.");
+                return;
+            }
+
+            emailToUse = profile.email;
+        }
+
+        const { error } = await supabaseClient.auth.signInWithPassword({
+            email: emailToUse,
+            password: password
         });
 
-    if (signUpError) {
-        alert("Chyba: " + signUpError.message);
-        return;
-    }
-
-    const { error: profileError } = await supabase
-        .from("profiles")
-        .insert([
-            {
-                id: signUpData.user.id,
-                username: username,
-                birth_date: birth_date
-            }
-        ]);
-
-    if (profileError) {
-        alert("Chyba při ukládání profilu: " + profileError.message);
-        return;
-    }
-
-    alert("Registrace proběhla! Zkontroluj email.");
-});
-
-
-LGNForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
+        if (error) {
+            alert("Login chyba: " + error.message);
+        } 
+        
+        else {
+            alert("Přihlášení úspěšné!");
+            modal.style.display = "none";
+        }
     });
-
-    if (error) {
-        alert("Login chyba: " + error.message);
-    } 
-    
-    else {
-        alert("Přihlášení úspěšné!");
-        modal.style.display = "none";
-
-        window.location.href = "http://127.0.0.1:5173/dashboard";
-    }
-});
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const { data } = await supabase.auth.getSession();
+    const { data } = await supabaseClient.auth.getSession();
 
     if (data.session) {
         console.log("Uživatel je přihlášen:", data.session.user.email);
@@ -355,7 +382,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("Nikdo není přihlášen");
     }
 });
-
 
 
 
