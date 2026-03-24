@@ -63,161 +63,165 @@ function sendEmail() {
 }
 
 
-let counter = document.querySelector('.counter-number');
-let plus = document.querySelector('.counter-prefix');
-let count = 1;
-let MaxCount = 10;
+const counter = document.querySelector('.counter-number');
+const plus = document.querySelector('.counter-prefix');
 
-function updateCounter() {
-    if (count <= MaxCount) {
-        counter.textContent = count;
+if (counter && plus) {
+    let count = 1;
+    const MaxCount = 10;
 
-        if (count === 10) {
-            applyResponsiveStyles(10);
-        } else {
-            applyResponsiveStyles(count);
+    function updateCounter() {
+        if (count <= MaxCount) {
+            counter.textContent = count;
+
+            if (count === 10) {
+                applyResponsiveStyles(10);
+            } 
+            
+            else {
+                applyResponsiveStyles(count);
+            }
+
+            count++;
+        } 
+        
+        else {
+            clearInterval(interval);
         }
-
-        count++;
-    } else {
-        clearInterval(interval);
     }
+
+    function applyResponsiveStyles(currentValue) {
+        let width = window.innerWidth;
+        let isTen = currentValue === 10;
+
+        if (width <= 310) {
+            if (isTen) {
+                counter.style.paddingLeft = '30px';
+                plus.style.paddingLeft = '5px';
+            } 
+            
+            else {
+                counter.style.paddingLeft = '40px';
+                plus.style.paddingLeft = '11px';
+            }
+        }
+        
+        else if (width <= 350) {
+            if (isTen) {
+                counter.style.paddingLeft = '33px';
+                plus.style.paddingLeft = '5px';
+            } 
+            
+            else {
+                counter.style.paddingLeft = '43px';
+                plus.style.paddingLeft = '14px';
+            }
+        }
+        
+        else if (width <= 400) {
+            if (isTen) {
+                counter.style.paddingLeft = '37px';
+                plus.style.paddingLeft = '5px';
+            } 
+            
+            else {
+                counter.style.paddingLeft = '47px';
+                plus.style.paddingLeft = '12px';
+            }
+        }
+        
+        else if (width <= 450) {
+            if (isTen) {
+                counter.style.paddingLeft = '39px';
+                plus.style.paddingLeft = '4px';
+            } 
+            
+            else {
+                counter.style.paddingLeft = '49px';
+                plus.style.paddingLeft = '14px';
+            }
+        }
+        
+        else if (width <= 550) {
+            if (isTen) {
+                counter.style.paddingLeft = '40px';
+                plus.style.paddingLeft = '4px';
+            } 
+            
+            else {
+                counter.style.paddingLeft = '52px';
+                plus.style.paddingLeft = '14px';
+            }
+        }
+        
+        else if (width <= 600) {
+            if (isTen) {
+                counter.style.paddingLeft = '40px';
+                plus.style.paddingLeft = '4px';
+            } 
+            
+            else {
+                counter.style.paddingLeft = '52px';
+                plus.style.paddingLeft = '12px';
+            }
+        }
+        
+        else if (width <= 800) {
+            if (isTen) {
+                counter.style.paddingLeft = '43px';
+                plus.style.paddingLeft = '5px';
+            } 
+            
+            else {
+                counter.style.paddingLeft = '53px';
+                plus.style.paddingLeft = '13px';
+            }
+        }
+        
+        else if (width <= 860) {
+            if (isTen) {
+                counter.style.paddingLeft = '44px';
+                plus.style.paddingLeft = '5px';
+            } 
+            
+            else {
+                counter.style.paddingLeft = '61px';
+                plus.style.paddingLeft = '20px';
+            }
+        }
+        
+        else if (width <= 960) {
+            if (isTen) {
+                counter.style.paddingLeft = '45px';
+                plus.style.paddingLeft = '5px';
+            }
+            
+            else {
+                counter.style.paddingLeft = '58px';
+                plus.style.paddingLeft = '18px';
+            }
+        }
+        
+        else {
+            if (isTen) {
+                counter.style.paddingLeft = '48px';
+                plus.style.paddingLeft = '6px';
+            }
+            
+            else {
+                counter.style.paddingLeft = '63px';
+                plus.style.paddingLeft = '18px';
+            }
+        }
+    }
+
+    const interval = setInterval(updateCounter, 300);
+
+    window.addEventListener('resize', function () {
+        let currentValue = Math.min(count - 1, MaxCount);
+        applyResponsiveStyles(currentValue);
+    });
 }
-
-function applyResponsiveStyles(currentValue) {
-    let width = window.innerWidth;
-    let isTen = currentValue === 10;
-
-    if (width <= 310) {
-        if (isTen) {
-            counter.style.paddingLeft = '30px';
-            plus.style.paddingLeft = '5px';
-        } 
-        
-        else {
-            counter.style.paddingLeft = '40px';
-            plus.style.paddingLeft = '11px';
-        }
-    } 
-    
-    else if (width <= 350) {
-        if (isTen) {
-            counter.style.paddingLeft = '33px';
-            plus.style.paddingLeft = '5px';
-        } 
-        
-        else {
-            counter.style.paddingLeft = '43px';
-            plus.style.paddingLeft = '14px';
-        }
-    } 
-    
-    else if (width <= 400) {
-        if (isTen) {
-            counter.style.paddingLeft = '37px';
-            plus.style.paddingLeft = '5px';
-        } 
-        
-        else {
-            counter.style.paddingLeft = '47px';
-            plus.style.paddingLeft = '12px';
-        }
-    } 
-    
-    else if (width <= 450) {
-        if (isTen) {
-            counter.style.paddingLeft = '39px';
-            plus.style.paddingLeft = '4px';
-        } 
-        
-        else {
-            counter.style.paddingLeft = '49px';
-            plus.style.paddingLeft = '14px';
-        }
-
-    }     
-
-    else if (width <= 550) {
-        if (isTen) {
-            counter.style.paddingLeft = '40px';
-            plus.style.paddingLeft = '4px';
-        } 
-        
-        else {
-            counter.style.paddingLeft = '52px';
-            plus.style.paddingLeft = '14px';
-        }
-
-    } 
-    
-    else if (width <= 600) {
-        if (isTen) {
-            counter.style.paddingLeft = '40px';
-            plus.style.paddingLeft = '4px';
-        } 
-        
-        else {
-            counter.style.paddingLeft = '52px';
-            plus.style.paddingLeft = '12px';
-        }
-    } 
-    
-    else if (width <= 800) {
-        if (isTen) {
-            counter.style.paddingLeft = '43px';
-            plus.style.paddingLeft = '5px';
-        } 
-        
-        else {
-            counter.style.paddingLeft = '53px';
-            plus.style.paddingLeft = '13px';
-        }
-    } 
-    
-    else if (width <= 860) {
-        if (isTen) {
-            counter.style.paddingLeft = '44px';
-            plus.style.paddingLeft = '5px';
-        } 
-        
-        else {
-            counter.style.paddingLeft = '61px';
-            plus.style.paddingLeft = '20px';
-        }
-    }
-
-     else if (width <= 960) {
-        if (isTen) {
-            counter.style.paddingLeft = '45px';
-            plus.style.paddingLeft = '5px';
-        } 
-        else {
-            counter.style.paddingLeft = '58px';
-            plus.style.paddingLeft = '18px';
-        }
-    } 
-
-    else {
-        if (isTen) {
-            counter.style.paddingLeft = '48px';
-            plus.style.paddingLeft = '6px';
-        } 
-        
-        else {
-            counter.style.paddingLeft = '63px';
-            plus.style.paddingLeft = '18px';
-        }
-    }
-}
-
-
-let interval = setInterval(updateCounter, 300);
-
-
-window.addEventListener('resize', function () {
-    let currentValue = Math.min(count - 1, MaxCount);
-    applyResponsiveStyles(currentValue);
-});
 
 
 const modal = document.getElementById("modal");
@@ -226,17 +230,19 @@ const LGNForm = document.getElementById("log-in-form");
 const SGNForm = document.getElementById("sign-up-form");
 const closeBtn = document.querySelector(".close-btn");
 
-if (closeBtn) {
+
+if (closeBtn && modal) {
     closeBtn.addEventListener("click", () => {
         modal.style.display = "none";
     });
 }
 
 window.addEventListener("click", (e) => {
-    if (e.target === modal) {
+    if (modal && e.target === modal) {
         modal.style.display = "none";
     }
 });
+
 
 function activateTab(type) {
     tabs.forEach(tab => tab.classList.remove("active"));
@@ -261,30 +267,36 @@ tabs.forEach(tab => {
 });
 
 const openLoginBtn = document.getElementById("openLogIn");
-if (openLoginBtn) {
+if (openLoginBtn && modal) {
     openLoginBtn.addEventListener("click", () => {
         modal.style.display = "flex";
         activateTab("login");
     });
 }
 
+
 const openSignupBtn = document.getElementById("openSignUp");
-if (openSignupBtn) {
+if (openSignupBtn && modal) {
     openSignupBtn.addEventListener("click", () => {
         modal.style.display = "flex";
         activateTab("sign-up");
     });
 }
 
+
 const SUPABASE_URL = "https://kklayfqcsrbghzctlncv.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_wC_LPUaxGzVbPJHw1ZEj-A_QKABj_BZ";
 
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+let supabaseClient = null;
 
-if (SGNForm) {
+if (window.supabase) {
+    supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+}
+
+if (supabaseClient && SGNForm) {
     SGNForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -333,7 +345,7 @@ if (SGNForm) {
     });
 }
 
-if (LGNForm) {
+if (supabaseClient && LGNForm) {
     LGNForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -379,14 +391,16 @@ if (LGNForm) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+    if (!supabaseClient) return;
+
     const { data } = await supabaseClient.auth.getSession();
 
     if (data.session) {
         console.log("Uživatel je přihlášen:", data.session.user.email);
-    } else {
+    } 
+    
+    else {
         console.log("Nikdo není přihlášen");
     }
 });
-
-
 
