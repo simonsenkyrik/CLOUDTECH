@@ -416,7 +416,7 @@ ul, li {
 
 .header-right, .navigation-menu, .nav-li {
     display: flex;
-    gap: 100px;
+    gap: 90px;
     text-decoration: none;
     color: var(--bs-white);
     align-items: center;
@@ -1037,7 +1037,30 @@ form input, form textarea {
     height: 12px;
 }
 
+@media screen and (max-width: 1500px) {
+
+    .header-right, .navigation-menu, .nav-li {
+        gap: 80px;
+    }
+
+    .navigation-container {
+        padding-left: 7rem;
+        padding-right: 7rem;
+    }
+
+}
+
 @media screen and (max-width: 1400px) {
+
+    .header-right, .navigation-menu, .nav-li {
+        gap: 70px;
+    }
+
+    .navigation-container {
+        padding-left: 6rem;
+        padding-right: 6rem;
+    }
+
 
     .contact-title, .links-title {
         font-size: 18px;
@@ -1328,7 +1351,7 @@ form input, form textarea {
         padding: 0;
     }
 
-    .nav-li {
+    .nav-li, .but-log-in, .but-sign-up {
         font-size: 15px;
     }
 
