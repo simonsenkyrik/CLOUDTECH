@@ -245,17 +245,21 @@ window.addEventListener("click", (e) => {
 
 
 function activateTab(type) {
+    if (!LGNForm || !SGNForm) return;
+
     tabs.forEach(tab => tab.classList.remove("active"));
     LGNForm.classList.remove("active");
     SGNForm.classList.remove("active");
 
     if (type === "login") {
-        document.querySelector('[data-tab="login"]').classList.add("active");
+        const loginTab = document.querySelector('[data-tab="login"]');
+        if (loginTab) loginTab.classList.add("active");
         LGNForm.classList.add("active");
     }
 
     if (type === "sign-up") {
-        document.querySelector('[data-tab="sign-up"]').classList.add("active");
+        const signUpTab = document.querySelector('[data-tab="sign-up"]');
+        if (signUpTab) signUpTab.classList.add("active");
         SGNForm.classList.add("active");
     }
 }
@@ -392,14 +396,87 @@ if (supabaseClient && LGNForm) {
 document.addEventListener("DOMContentLoaded", async () => {
     if (!supabaseClient) return;
 
-    const { data } = await supabaseClient.auth.getSession();
+    const { data, error } = await supabaseClient.auth.getSession();
+
+    if (error) {
+        console.error("Chyba session:", error.message);
+        return;
+    }
 
     if (data.session) {
-        console.log("Uživatel je přihlášen:", data.session.user.email);
+        const user = data.session.user;
+
+        console.log("Uživatel je přihlášen:", user.email);
+
+        await ensureProfile(user);
+
+        // až budeš chtít posílat uživatele do dashboardu, odkomentuj:
+        // window.location.href = "http://localhost:5173/";
     } 
     
     else {
         console.log("Nikdo není přihlášen");
     }
 });
+
+
+const googleButtons = document.querySelectorAll(".google-btn");
+
+googleButtons.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+        if (!supabaseClient) return;
+
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+                redirectTo: "http://127.0.0.1:5500/index.html"
+            }
+        });
+
+        if (error) {
+            alert("Google login chyba: " + error.message);
+        }
+    });
+});
+
+
+async function ensureProfile(user) {
+    if (!supabaseClient || !user) return;
+
+    const { data: existingProfile, error: profileCheckError } = await supabaseClient
+        .from("profiles")
+        .select("id")
+        .eq("id", user.id)
+        .maybeSingle();
+
+    if (profileCheckError) {
+        console.error("Chyba při kontrole profilu:", profileCheckError.message);
+        return;
+    }
+
+    if (!existingProfile) {
+        const email = user.email || "";
+        const username =
+            user.user_metadata?.user_name ||
+            user.user_metadata?.name ||
+            user.user_metadata?.full_name ||
+            email.split("@")[0] ||
+            `user_${user.id.slice(0, 8)}`;
+
+        const { error: insertError } = await supabaseClient
+            .from("profiles")
+            .insert([
+                {
+                    id: user.id,
+                    email: email,
+                    username: username,
+                    plan: "free"
+                }
+            ]);
+
+        if (insertError) {
+            console.error("Chyba při vytváření profilu:", insertError.message);
+        }
+    }
+}
 
