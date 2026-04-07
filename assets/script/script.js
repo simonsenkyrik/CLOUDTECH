@@ -384,7 +384,6 @@ if (supabaseClient && LGNForm) {
             alert("Přihlášení úspěšné!");
             modal.style.display = "none";
 
-            // později vrátíme redirect na dashboard
             // window.location.href = "http://localhost:5173/";
         }
     });
