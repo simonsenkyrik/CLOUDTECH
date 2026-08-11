@@ -287,17 +287,29 @@ if (openSignupBtn && modal) {
     });
 }
 
-
 const SUPABASE_URL = "https://kklayfqcsrbghzctlncv.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_wC_LPUaxGzVbPJHw1ZEj-A_QKABj_BZ";
+const DASHBOARD_URL = "http://localhost:5173/";
 
 let supabaseClient = null;
+
 
 if (window.supabase) {
     supabaseClient = window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_ANON_KEY
     );
+}
+
+function openDashboard(session) {
+    if (!session) return;
+
+    const params = new URLSearchParams({
+        access_token: session.access_token,
+        refresh_token: session.refresh_token
+    });
+
+    window.location.href = `${DASHBOARD_URL}#${params.toString()}`;
 }
 
 if (supabaseClient && SGNForm) {
@@ -359,6 +371,7 @@ if (supabaseClient && LGNForm) {
         let emailToUse = identifier;
         const isEmail = identifier.includes("@");
 
+        // Pokud uživatel zadal username, najdeme jeho email.
         if (!isEmail) {
             const { data: profile, error: profileError } = await supabaseClient
                 .from("profiles")
@@ -374,22 +387,19 @@ if (supabaseClient && LGNForm) {
             emailToUse = profile.email;
         }
 
-        const { error } = await supabaseClient.auth.signInWithPassword({
+        // Přihlášení pomocí emailu a hesla.
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: emailToUse,
             password: password
         });
 
         if (error) {
             alert("Login chyba: " + error.message);
-
-        } 
-        
-        else {
-            alert("Přihlášení úspěšné!");
-            modal.style.display = "none";
-
-            // window.location.href = "http://localhost:5173/";
+            return;
         }
+        
+        modal.style.display = "none";
+        openDashboard(data.session);
     });
 }
 
@@ -410,7 +420,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await ensureProfile(user);
 
-        // až budeš chtít posílat uživatele do dashboardu, odkomentuj:
         // window.location.href = "http://localhost:5173/";
     } 
     
@@ -479,4 +488,3 @@ async function ensureProfile(user) {
         }
     }
 }
-
