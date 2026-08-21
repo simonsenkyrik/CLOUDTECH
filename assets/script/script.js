@@ -438,7 +438,7 @@ googleButtons.forEach((btn) => {
         const { error } = await supabaseClient.auth.signInWithOAuth({
             provider: "google",
             options: {
-                redirectTo: "http://127.0.0.1:5500/index.html"
+                redirectTo: DASHBOARD_URL
             }
         });
 
