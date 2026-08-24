@@ -133,6 +133,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("overview");
 
   const fileInputRef = useRef(null);
   const filesPanelRef = useRef(null);
@@ -268,8 +269,17 @@ function App() {
 
   const storagePercent = Math.min(
     100,
-    Math.round((usedStorage / storageLimit) * 100),
+    (usedStorage / storageLimit) * 100,
   );
+
+  const storageBarPercent = usedStorage > 0
+    ? Math.max(storagePercent, 0.6)
+    : 0;
+
+  const storagePercentLabel = storagePercent.toLocaleString("cs-CZ", {
+    minimumFractionDigits: storagePercent > 0 && storagePercent < 1 ? 1 : 0,
+    maximumFractionDigits: 1,
+  });
 
   const stats = useMemo(
     () => ({
@@ -314,8 +324,15 @@ function App() {
     window.location.href = LOGIN_URL;
   };
 
+  const scrollToOverview = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setActiveSection("overview");
+    setSidebarOpen(false);
+  };
+
   const scrollToFiles = () => {
     filesPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActiveSection("files");
     setSidebarOpen(false);
   };
 
@@ -487,8 +504,18 @@ function App() {
         <div className="sidebar-section">
           <p className="sidebar-section-title">Navigace</p>
           <nav className="sidebar-nav" aria-label="Hlavní navigace">
-            <NavItem icon={Home} label="Přehled" active onClick={() => setSidebarOpen(false)} />
-            <NavItem icon={Folder} label="Moje soubory" onClick={scrollToFiles} />
+            <NavItem
+              icon={Home}
+              label="Přehled"
+              active={activeSection === "overview"}
+              onClick={scrollToOverview}
+            />
+            <NavItem
+              icon={Folder}
+              label="Moje soubory"
+              active={activeSection === "files"}
+              onClick={scrollToFiles}
+            />
           </nav>
         </div>
 
@@ -507,13 +534,13 @@ function App() {
               role="progressbar"
               aria-valuemin="0"
               aria-valuemax="100"
-              aria-valuenow={storagePercent}
+              aria-valuenow={Number(storagePercent.toFixed(1))}
               aria-label="Využití úložiště"
             >
-              <span style={{ width: `${storagePercent}%` }} />
+              <span style={{ width: `${storageBarPercent}%` }} />
             </div>
 
-            <p>{storagePercent}% využito</p>
+            <p>{storagePercentLabel} % využito</p>
           </div>
         </div>
 
@@ -568,7 +595,7 @@ function App() {
               <h1>
                 Vítej, {displayName}! <span aria-hidden="true">👋</span>
               </h1>
-              <p>Tady je přehled tvého cloudového úložiště.</p>
+              <p>Zde je přehled tvého úložiště.</p>
             </div>
           </div>
 
