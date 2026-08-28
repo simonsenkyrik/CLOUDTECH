@@ -26,7 +26,6 @@ import { supabase } from "./lib/supabase";
 const LOGIN_URL = "http://127.0.0.1:5500/index.html";
 const STORAGE_BUCKET = "user-files";
 
-// Kapacity jsou pravidla aplikace CLOUDTECH.
 const PLAN_LIMITS = {
   free: 5 * 1024 ** 3,
   mid: 50 * 1024 ** 3,
@@ -136,7 +135,6 @@ function App() {
   const [activeSection, setActiveSection] = useState("overview");
 
   const fileInputRef = useRef(null);
-  const filesPanelRef = useRef(null);
   const initializedRef = useRef(false);
 
   const loadFiles = useCallback(async (userId) => {
@@ -176,7 +174,6 @@ function App() {
         const accessToken = params.get("access_token");
         const refreshToken = params.get("refresh_token");
 
-        // Při přechodu z HTML přihlašovací stránky nastavíme session v Reactu.
         if (accessToken && refreshToken) {
           const { error: sessionError } = await supabase.auth.setSession({
             access_token: accessToken,
@@ -210,7 +207,6 @@ function App() {
           console.error("Profil se nepodařilo načíst:", profileError.message);
         }
 
-        // Google OAuth vytvoří uživatele v Auth, ale řádek v profiles nemusí existovat.
         if (!profileData) {
           const fallbackUsername =
             currentUser.user_metadata?.full_name ||
@@ -325,78 +321,129 @@ function App() {
   };
 
   const scrollToOverview = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
     setActiveSection("overview");
     setSidebarOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const scrollToFiles = () => {
-    filesPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     setActiveSection("files");
     setSidebarOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleFileSelect = async (event) => {
-    const selectedFile = event.target.files?.[0];
-    event.target.value = "";
+  const selectedFiles = Array.from(event.target.files || []);
+  event.target.value = "";
 
-    if (!selectedFile || !user) return;
+  if (selectedFiles.length === 0 || !user) return;
 
-    if (usedStorage + selectedFile.size > storageLimit) {
-      setNotice({
-        type: "error",
-        text: `Soubor nelze nahrát. Tarif ${planName} má limit ${formatBytes(storageLimit)}.`,
-      });
-      return;
-    }
+  const totalSelectedSize = selectedFiles.reduce(
+    (total, file) => total + file.size,
+    0,
+  );
 
-    setUploading(true);
-    setNotice({ type: "info", text: `Nahrávám soubor ${selectedFile.name}…` });
-
-    const safeName = sanitizeFileName(selectedFile.name) || "soubor";
-    const storagePath = `${user.id}/${crypto.randomUUID()}-${safeName}`;
-
-    const { error: uploadError } = await supabase.storage
-      .from(STORAGE_BUCKET)
-      .upload(storagePath, selectedFile, {
-        cacheControl: "3600",
-        upsert: false,
-        contentType: selectedFile.type || "application/octet-stream",
-      });
-
-    if (uploadError) {
-      console.error("Upload selhal:", uploadError.message);
-      setNotice({ type: "error", text: `Nahrání selhalo: ${uploadError.message}` });
-      setUploading(false);
-      return;
-    }
-
-    const { error: databaseError } = await supabase.from("files").insert({
-      user_id: user.id,
-      file_name: selectedFile.name,
-      storage_path: storagePath,
-      file_size: selectedFile.size,
-      mime_type: selectedFile.type || "application/octet-stream",
+  if (usedStorage + totalSelectedSize > storageLimit) {
+    setNotice({
+      type: "error",
+      text: `Vybrané soubory nelze nahrát. Tarif ${planName} má limit ${formatBytes(storageLimit)}.`,
     });
 
-    if (databaseError) {
-      await supabase.storage.from(STORAGE_BUCKET).remove([storagePath]);
-      console.error("Uložení metadat selhalo:", databaseError.message);
-      setNotice({
-        type: "error",
-        text: `Soubor nebyl uložen do databáze: ${databaseError.message}`,
-      });
-      setUploading(false);
-      return;
+    return;
+  }
+
+  setUploading(true);
+
+  setNotice({
+    type: "info",
+    text:
+      selectedFiles.length === 1
+        ? `Nahrávám soubor ${selectedFiles[0].name}…`
+        : `Nahrávám ${selectedFiles.length} souborů…`,
+  });
+
+  let uploadedCount = 0;
+  const failedFiles = [];
+
+  try {
+    for (const selectedFile of selectedFiles) {
+      const safeName =
+        sanitizeFileName(selectedFile.name) || "soubor";
+
+      const storagePath =
+        `${user.id}/${crypto.randomUUID()}-${safeName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from(STORAGE_BUCKET)
+        .upload(storagePath, selectedFile, {
+          cacheControl: "3600",
+          upsert: false,
+          contentType:
+            selectedFile.type || "application/octet-stream",
+        });
+
+      if (uploadError) {
+        console.error(
+          `Upload souboru ${selectedFile.name} selhal:`,
+          uploadError.message,
+        );
+
+        failedFiles.push(selectedFile.name);
+        continue;
+      }
+
+      const { error: databaseError } = await supabase
+        .from("files")
+        .insert({
+          user_id: user.id,
+          file_name: selectedFile.name,
+          storage_path: storagePath,
+          file_size: selectedFile.size,
+          mime_type:
+            selectedFile.type || "application/octet-stream",
+        });
+
+      if (databaseError) {
+        await supabase.storage
+          .from(STORAGE_BUCKET)
+          .remove([storagePath]);
+
+        console.error(
+          `Metadata souboru ${selectedFile.name} nebyla uložena:`,
+          databaseError.message,
+        );
+
+        failedFiles.push(selectedFile.name);
+        continue;
+      }
+
+      uploadedCount += 1;
     }
 
     await loadFiles(user.id);
-    setNotice({
-      type: "success",
-      text: `Soubor ${selectedFile.name} byl úspěšně nahrán.`,
-    });
+
+    if (failedFiles.length > 0) {
+      setNotice({
+        type: "error",
+        text:
+          `Nahráno ${uploadedCount} z ${selectedFiles.length} souborů. ` +
+          `Nepodařilo se nahrát: ${failedFiles.join(", ")}.`,
+      });
+    } else if (uploadedCount === 1) {
+      setNotice({
+        type: "success",
+        text: `Soubor ${selectedFiles[0].name} byl úspěšně nahrán.`,
+      });
+    } else {
+      setNotice({
+        type: "success",
+        text: `Vybrané soubory (${uploadedCount}) byly úspěšně nahrány.`,
+      });
+    }
+  } finally {
     setUploading(false);
-  };
+  }
+};
 
   const handleDownload = async (file) => {
     setNotice({ type: "info", text: `Připravuji stažení souboru ${getFileName(file)}…` });
@@ -489,7 +536,9 @@ function App() {
       <aside className={`dashboard-sidebar${sidebarOpen ? " is-open" : ""}`}>
         <div className="sidebar-top-row">
           <div className="sidebar-logo">
-            <img src="/cloudtech-logo.png" alt="CLOUDTECH" />
+            <a href="/" className="sidebar-logo" aria-label="Načíst přehled CLOUDTECH">
+              <img src="/cloudtech-logo.png" alt="CLOUDTECH"/>
+            </a>
           </div>
           <button
             type="button"
@@ -592,18 +641,30 @@ function App() {
             </button>
 
             <div>
-              <h1>
-                Vítej, {displayName}! <span aria-hidden="true">👋</span>
-              </h1>
-              <p>Zde je přehled tvého úložiště.</p>
+              <div>
+                <h1>
+                  {activeSection === "overview" ? (
+                  <>Vítej, {displayName}!</>
+                  ) : (
+                  "Moje soubory"
+                  )}
+                </h1>
+                  <p>
+                    {activeSection === "overview"
+                      ? "Zde je přehled tvého úložiště."
+                      : "Zde můžeš vyhledávat, filtrovat a spravovat své soubory."}
+                  </p>
+              </div>
             </div>
-          </div>
+          </div>  
+
 
           <div className="dashboard-header-actions">
             <input
               ref={fileInputRef}
               className="visually-hidden"
               type="file"
+              multiple
               onChange={handleFileSelect}
             />
 
@@ -614,17 +675,42 @@ function App() {
               onClick={() => fileInputRef.current?.click()}
             >
               {uploading ? <Loader2 className="spin-icon" size={19} /> : <Upload size={19} />}
-              {uploading ? "Nahrávám…" : "Nahrát soubor"}
+              {uploading ? "Nahrávám…" : "Nahrát soubory"}
             </Button>
           </div>
         </header>
 
-        <section className="stats-grid" aria-label="Statistiky souborů">
-          <StatCard icon={Files} label="Celkem souborů" value={stats.all} tone="blue" />
-          <StatCard icon={ImageIcon} label="Obrázky" value={stats.image} tone="green" />
-          <StatCard icon={Video} label="Videa" value={stats.video} tone="pink" />
-          <StatCard icon={FileText} label="Dokumenty" value={stats.document} tone="amber" />
-        </section>
+{activeSection === "overview" && (
+  <section className="stats-grid" aria-label="Statistiky souborů">
+    <StatCard
+      icon={Files}
+      label="Celkem souborů"
+      value={stats.all}
+      tone="blue"
+    />
+
+    <StatCard
+      icon={ImageIcon}
+      label="Obrázky"
+      value={stats.image}
+      tone="green"
+    />
+
+    <StatCard
+      icon={Video}
+      label="Videa"
+      value={stats.video}
+      tone="purple"
+    />
+
+    <StatCard
+      icon={FileText}
+      label="Dokumenty"
+      value={stats.document}
+      tone="orange"
+    />
+    </section>
+)}
 
         <section className="files-toolbar" aria-label="Vyhledávání a filtry">
           <div className="search-control">
@@ -670,8 +756,8 @@ function App() {
           </div>
         )}
 
-        <section className="files-panel" id="files" ref={filesPanelRef}>
-          <div className="files-panel-header">
+          <section className="files-panel" id="files">
+            <div className="files-panel-header">
             <div>
               <h2>Moje soubory</h2>
               <p>{filteredFiles.length} zobrazených souborů</p>
@@ -689,10 +775,7 @@ function App() {
                 <FileText size={46} strokeWidth={1.5} />
               </div>
               <h3>Zatím nemáte žádné soubory</h3>
-              <p>
-                Pro nahrání prvního souboru použijte tlačítko „Nahrát soubor“
-                vpravo nahoře.
-              </p>
+              <p>Pro nahrání prvních souborů použijte tlačítko „Nahrát soubory“ vpravo nahoře.</p>
             </div>
           ) : (
             <div className="file-table" role="table" aria-label="Seznam souborů">
@@ -736,7 +819,7 @@ function App() {
                       </button>
                       <button
                         type="button"
-                        className="file-action-button file-action-button--danger"
+                        className="file-action-button file-action-button--red"
                         aria-label={`Smazat ${getFileName(file)}`}
                         title="Smazat"
                         onClick={() => handleDelete(file)}
