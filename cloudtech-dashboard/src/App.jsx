@@ -165,6 +165,26 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    if (sidebarOpen) {
+      html.classList.add("sidebar-open");
+      body.classList.add("sidebar-open");
+    }
+    
+    else {
+      html.classList.remove("sidebar-open");
+      body.classList.remove("sidebar-open");
+    }
+
+    return () => {
+      html.classList.remove("sidebar-open");
+      body.classList.remove("sidebar-open");
+    };
+  }, [sidebarOpen]);
+
+  useEffect(() => {
     if (initializedRef.current) return;
     initializedRef.current = true;
 
