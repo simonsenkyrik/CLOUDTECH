@@ -64,11 +64,9 @@
   --bs-border-active: rgba(0, 162, 221, 0.46);
   --bs-red-soft: rgba(220, 38, 38, 0.14);
 
-  --bs-primary-gradient:
-    linear-gradient(41deg, #00a2dd 18%, #062d6d 100%);
+  --bs-primary-gradient: linear-gradient(41deg, #00a2dd 18%, #062d6d 100%);
 
-  --bs-progress-gradient:
-    linear-gradient(90deg, #119bf8, #245df4);
+  --bs-progress-gradient: linear-gradient(90deg, #119bf8, #245df4);
 }
 
 html::-webkit-scrollbar {
@@ -360,7 +358,9 @@ button {
   border-radius: 9px;
   color: var(--bs-red);
   background: transparent;
-  transition: color 160ms ease, background 160ms ease;
+  transition:
+    color 160ms ease,
+    background 160ms ease;
   cursor: pointer;
 }
 
@@ -422,7 +422,9 @@ button {
   border: 1px solid var(--bs-border);
   border-radius: 15px;
   background: var(--bs-panel);
-  transition: border-color 170ms ease, background 170ms ease;
+  transition:
+    border-color 170ms ease,
+    background 170ms ease;
 }
 
 .stat-card:hover {
@@ -540,7 +542,9 @@ button {
   font-size: 13px;
   font-weight: 650;
   cursor: pointer;
-  transition: border-color 160ms ease, background 160ms ease;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
 .filter-button:hover {
@@ -552,8 +556,7 @@ button {
   border: none;
   color: var(--bs-white);
   background: var(--bs-primary-gradient);
-} 
-
+}
 
 .files-panel {
   overflow: hidden;
@@ -624,7 +627,9 @@ button {
 
 .file-table-row {
   display: grid;
-  grid-template-columns: minmax(240px, 1.7fr) minmax(105px, 0.65fr) minmax(90px, 0.55fr) minmax(115px, 0.7fr) 36px;
+  grid-template-columns:
+    minmax(240px, 1.7fr) minmax(105px, 0.65fr) minmax(90px, 0.55fr)
+    minmax(115px, 0.7fr) 36px;
   align-items: center;
   gap: 14px;
   min-height: 54px;
@@ -689,7 +694,6 @@ button {
   color: var(--bs-purple);
   background: rgba(155, 92, 255, 0.14);
 }
-
 
 .dashboard-state {
   min-height: 100vh;
@@ -967,7 +971,10 @@ button {
   color: var(--bs-white);
   background: var(--bs-primary-gradient);
   cursor: pointer;
-  transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
 }
 
 .file-action-button--red {
@@ -980,6 +987,184 @@ button {
   cursor: wait;
   opacity: 0.72;
 }
+
+/*--------------------------------------------*/
+
+.admin-users-table {
+  width: 100%;
+}
+
+.admin-users-row {
+  display: grid;
+  grid-template-columns: 2fr 1.4fr 0.7fr 0.7fr 0.9fr 0.7fr;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--bs-border);
+}
+
+.admin-users-head {
+  color: var(--bs-muted-dark);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.admin-users-panel {
+  overflow: visible;
+}
+
+.admin-users-header {
+  border-bottom: none;
+}
+
+.admin-plan-select-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 118px;
+}
+
+.admin-plan-select {
+  min-height: 36px;
+  width: 100%;
+  padding: 0 28px 0 14px;
+  border: 1px solid var(--bs-border);
+  border-radius: 8px;
+  color: var(--bs-text-light);
+  background: rgba(10, 14, 48, 0.82);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-plan-select-icon {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  color: var(--bs-muted-second);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.admin-plan-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 30;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--bs-border);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  background: var(--bs-panel-dark);
+  overflow: hidden;
+}
+
+.admin-plan-select.is-open {
+  border-radius: 8px 8px 0 0;
+}
+
+.admin-plan-option {
+  width: 100%;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  border: none;
+  border-radius: 0;
+  color: var(--bs-text-light);
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-plan-option:not(:last-child) {
+  border-bottom: 1px solid var(--bs-border);
+}
+
+.admin-approve-button {
+  width: fit-content;
+  min-height: 36px;
+  justify-self: start;
+  border: none;
+  border-radius: 8px;
+  color: var(--bs-white);
+  padding: 0 14px;
+  cursor: pointer;
+  background: var(--bs-primary-gradient);
+}
+
+@media (max-width: 1470px) {
+  .admin-users-head {
+    display: none;
+  }
+
+  .admin-users-row:not(.admin-users-head) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 24px;
+    padding: 16px;
+  }
+
+  .admin-users-row:not(.admin-users-head) > * {
+    min-width: 0;
+    display: grid;
+    gap: 5px;
+  }
+
+  .admin-users-row:not(.admin-users-head) > :nth-child(1)::before {
+    content: "Uživatel";
+  }
+
+  .admin-users-row:not(.admin-users-head) > :nth-child(2)::before {
+    content: "E-mail";
+  }
+
+  .admin-users-row:not(.admin-users-head) > :nth-child(3)::before {
+    content: "Tarif";
+  }
+
+  .admin-users-row:not(.admin-users-head) > :nth-child(4)::before {
+    content: "Role";
+  }
+
+  .admin-users-row:not(.admin-users-head) > :nth-child(5)::before {
+    content: "Stav";
+  }
+
+  .admin-users-row:not(.admin-users-head) > :nth-child(6)::before {
+    content: "Akce";
+  }
+
+  .admin-users-row:not(.admin-users-head) > *::before {
+    color: var(--bs-muted-dark);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .admin-users-row:not(.admin-users-head) > :nth-child(1),
+  .admin-users-row:not(.admin-users-head) > :nth-child(2) {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-users-row:not(.admin-users-head) {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .admin-approve-button {
+    width: 100%;
+    justify-self: stretch;
+  }
+}
+
+/*--------------------------------------------*/
 
 @media (max-height: 780px) and (min-width: 981px) {
   .dashboard-sidebar {
@@ -1023,7 +1208,7 @@ button {
   body.sidebar-open {
     overflow: hidden;
   }
-  
+
   .dashboard-shell {
     display: block;
   }
@@ -1081,7 +1266,6 @@ button {
 }
 
 @media (max-width: 760px) {
-
   .dashboard-main {
     padding: 20px 15px 28px;
   }
@@ -1120,7 +1304,6 @@ button {
 }
 
 @media (max-width: 500px) {
-
   .dashboard-header-actions,
   .upload-button {
     width: 100%;
@@ -1129,7 +1312,6 @@ button {
   .stats-grid {
     grid-template-columns: 1fr;
   }
-
 }
 
 @media (max-width: 430px) {
@@ -1153,7 +1335,6 @@ button {
 }
 
 @media (max-width: 340px) {
-  
   .dashboard-main {
     padding: 18px 13px 26px;
   }
@@ -1177,7 +1358,7 @@ button {
   .file-table-row,
   .file-name-cell {
     min-width: 0;
-  }  
+  }
 
   .files-panel-header {
     padding: 14px 16px;
@@ -1214,6 +1395,4 @@ button {
     width: 30px;
     height: 30px;
   }
-
 }
-
